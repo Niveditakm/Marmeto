@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marmeto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="Assets/logo.png" alt="Logo">
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <div class="cart-icon">
+        <img src="Assets/search.png" alt="Search">
+        <img src="Assets/like.png" alt="Like">
+        <img src="Assets/cart.png" alt="Cart">
+      </div>
+    </nav>
+  </header>
+
+  <img src="Assets/main1.png" alt="Main Banner" class="main-banner">
+
+  <main>
+    <section class="cart">
+      <div class="cart-items">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="cart-totals">
+        <h3>Cart Totals</h3>
+        <p>Subtotal: <span id="subtotal">Rs. 0.00</span></p>
+        <p>Total: <span id="total">Rs. 0.00</span></p>
+        <button id="checkout-btn">Check Out</button>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <div class="service">
+      <img src="Assets/Footer.png" alt="Footer">
+    </div>
+  </footer>
+
+  <script>
+
+    const cartData = {
+      "original_total_price": 250000,
+      "items": [
+        {
+          "id": 49839206859071,
+          "quantity": 1,
+          "variant_id": 49839206859071,
+          "key": "49839206859071:e32e24073a153fb68fbc44cd5cd43e05",
+          "title": "Asgaard sofa",
+          "price": 25000000,
+          "original_price": 25000000,
+          "presentment_price": 250000,
+          "discounted_price": 25000000,
+          "line_price": 25000000,
+          "original_line_price": 25000000,
+          "total_discount": 5000000,
+          "sku": "",
+          "grams": 0,
+          "vendor": "Lnd [ RISHABH ] ",
+          "taxable": true,
+          "product_id": 9740132319551,
+          "product_has_only_default_variant": true,
+          "gift_card": false,
+          "final_price": 25000000,
+          "final_line_price": 25000000,
+          "url": "/products/asgaard-sofa?variant=49839206859071",
+          "featured_image": {
+            "aspect_ratio": 1.23,
+            "alt": "Asgaard sofa",
+            "height": 391,
+            "url": "https://cdn.shopify.com/s/files/1/0883/2188/4479/files/Asgaardsofa3.png?v=1728384481",
+            "width": 481
+          },
+          "image": "https://cdn.shopify.com/s/files/1/0883/2188/4479/files/Asgaardsofa3.png?v=1728384481",
+          "handle": "asgaard-sofa",
+          "requires_shipping": true,
+          "product_type": "",
+          "product_title": "Asgaard sofa",
+          "product_description": "The Asgaard sofa offers unparalleled comfort and style with its sleek design and high-quality materials. With its expert craftsmanship and attention to detail, this sofa is perfect for anyone looking to elevate their living space. Enjoy a luxurious and relaxing experience with the Asgaard sofa.",
+          "variant_title": null,
+          "variant_options": [
+            "Default Title"
+          ],
+          "options_with_values": [
+            {
+              "name": "Title",
+              "value": "Default Title"
+            }
+          ],
+          "line_level_discount_allocations": [],
+          "line_level_total_discount": 0,
+          "quantity_rule": {
+            "min": 1,
+            "max": null,
+            "increment": 1
+          },
+          "has_components": false
+        }
+      ],
+      "requires_shipping": true,
+      "currency": "INR",
+      "items_subtotal_price": 25000000
+    };
+
+
+    const cartItemsContainer = document.getElementById("cart-items");
+    const subtotalElement = document.getElementById("subtotal");
+    const totalElement = document.getElementById("total");
+
+
+    let subtotal = 0;
+    cartData.items.forEach((item) => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>
+          <img src="${item.image}" alt="${item.title}" style="width: 80px; height: 80px; border-radius: 8px; margin-right: 10px;" />
+          ${item.title}
+        </td>
+        <td>Rs. ${(item.price / 100).toLocaleString()}</td>
+        <td><input type="number" value="${item.quantity}" min="1" /></td>
+        <td>Rs. ${(item.line_price / 100).toLocaleString()}</td>
+        <td><span class="trash-icon">🗑️</span></td>
+      `;
+
+      cartItemsContainer.appendChild(row);
+      subtotal += item.line_price;
+    });
+
+
+    subtotalElement.textContent = `Rs. ${(subtotal / 100).toLocaleString()}`;
+    totalElement.textContent = `Rs. ${(subtotal / 100).toLocaleString()}`;
+  </script>
+</body>
+
+</html>
